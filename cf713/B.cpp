@@ -37,11 +37,6 @@ int main()
                 }
             }
        }
-       //cout<<mem2[1]<<endl;
-       // for(i=1;i<=n;i++)
-       // {
-       //  for(j=1;j<=n;j++)
-       //  {
             if(mem1[1]==mem1[2])
                 {
                     if(mem1[1]==n)
@@ -73,8 +68,6 @@ int main()
                     a[mem1[1]][mem2[2]]='*';
                     a[mem1[2]][mem2[1]]='*';
                 }
-       //  }
-       // }
        for(i=1;i<=n;i++)
        {
         for(j=1;j<=n;j++) cout<<a[i][j];
