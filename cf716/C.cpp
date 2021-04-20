@@ -1,27 +1,46 @@
+//بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+
 #include<bits/stdc++.h>
 using namespace std;
 #define FastRead ios_base::sync_with_stdio(false);cin.tie(NULL)
 #define pi acos(-1)
 #define endl "\n"
 #define ull unsigned long long
-
+#define con (f?"YES":"NO")
 #define inf 10002
+#define MOD 1000000007
 
 
 int main()
 {
     FastRead;
   
-   #ifndef sabbir
-    freopen("/CP_OJ/input.txt", "r", stdin); 
-    freopen("/CP_OJ/output.txt", "w", stdout);
-    #endif
+   // #ifndef sabbir
+   //  freopen("input.txt", "r", stdin); 
+   //  freopen("output.txt", "w", stdout);
+   //  #endif
 
-    long long t;
-    cin>>t;
-    while(t--)
+   long long n, ans=1,i;
+   cin>>n;
+   vector<long long>p;
+   for(i=1;i<n;i++)
+   {
+    if(__gcd(n,i)==1)
     {
-        cout<<t<<endl;
+      p.push_back(i);
+      ans=(ans*i)%n;
     }
-   
+   }
+   long long l=p.size(),mem=0;
+   if(ans!=1)
+    {
+      mem=ans;
+      cout<<l-1<<endl;
+    }
+    else cout<<l<<endl;
+    for(i=0;i<l;i++)
+    {
+      if(p[i]!=mem) cout<<p[i]<<" ";
+    }
+    cout<<endl;
 }
