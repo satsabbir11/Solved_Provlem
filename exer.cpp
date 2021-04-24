@@ -14,37 +14,35 @@ int main()
 {
   FastRead;
 
-//    #ifndef sabbir
-//     freopen("/CP_OJ/input.txt", "r", stdin); 
-//     freopen("/CP_OJ/output.txt", "w", stdout);
-//     #endif
+   #ifndef sabbir
+    freopen("/CP_OJ/input.txt", "r", stdin); 
+    freopen("/CP_OJ/output.txt", "w", stdout);
+    #endif
 
   long long t;
   cin>>t;
   while(t--)
   {
-      long long n,i,j,l=0;
-      vector<long long>p;
-      cin>>n;
-      for(i=n+1;;i++)
-      {
-          bool f=true;
-          for(j=2;j*j<=i;j++)
-          {
-              if(i%j==0)
-              {
-                  f=false;
-                  break;
-              }
-          }
-          if(f)
-          {
-              p.push_back(i);
-              l++;
-              if(l==2) break;
-              i+=(n-1);
-          }
-      }
-      cout<<min(p[0]*p[1],p[0]*p[0]*p[0])<<endl;
+     long long n,i;
+     cin>>n;
+     long long a[n+2];
+     map<long long, long long>mp,np;
+     for(i=1;i<n;i++)
+     {
+         mp[a[i]]++;
+         if(mp[a[i]]==2)
+             {
+                 mp[a[i]+1]++;
+                 mp[a[i]]=0;
+             }
+        vector<long long>p;
+         for(j=i+1;j<=n;j++) p.push_back(a[j]);
+         sort(p.begin(),p.end());
+         for(j=1;j<=l;j++)
+         {
+             if(p[j]==p[j-1]) p[]
+         }
+
+     }
   }
 }

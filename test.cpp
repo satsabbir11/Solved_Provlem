@@ -1,11 +1,14 @@
+//بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+
 #include<bits/stdc++.h>
 using namespace std;
 #define FastRead ios_base::sync_with_stdio(false);cin.tie(NULL)
 #define pi acos(-1)
 #define endl "\n"
 #define ull unsigned long long
-
+#define con (f?"YES":"NO")
 #define inf 10002
+#define MOD 1000000007
 
 
 int main()
