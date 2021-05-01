@@ -29,3 +29,5 @@ int main()
       cout<<ans[i]<<" ";
     }
 }
+
+//one of the best
