@@ -37,7 +37,7 @@ int main()
      {
       long long d=n/4;
       long long m=sqrt(d);
-      if(m*m==d) f=true;
+      if(m*m==d) f= true;
      }
     cout<<con<<endl;
   }
