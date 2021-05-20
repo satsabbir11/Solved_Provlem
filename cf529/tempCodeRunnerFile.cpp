@@ -1,2 +1,0 @@
-
-    long long t;

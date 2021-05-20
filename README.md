@@ -1,1 +1,1 @@
-Problem Solving for competitive programming. (CF, LOJ and more!)
+Problem Solving for competitive programming. (CF, LOJ, Vjudge and more!)
