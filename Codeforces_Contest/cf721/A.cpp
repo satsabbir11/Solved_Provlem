@@ -41,3 +41,5 @@ int main()
       cout<<ans-1<<endl;
    }
 }
+
+// to inactive the last bit of n you need its highst lower bit number like 1,111,1111,11111
