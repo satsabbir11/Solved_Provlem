@@ -45,3 +45,8 @@ int main()
     else cout<<"BOB"<<endl;
    }
 }
+
+// first we see for the even number of zero...there is always who take first move will lose by two pont like AAAB or AAAABB.
+// so Alice lose for this condition.
+
+// same for the odd number of zero Alice move first. then Bob move fist so Bob lose to Alice by one point. BBBA A . BBBBAA A
