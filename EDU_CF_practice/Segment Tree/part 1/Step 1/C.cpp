@@ -9,57 +9,50 @@ using namespace std;
 #define con (f?"YES":"NO")
 #define inf 100002
 #define MOD 1000000007
-long long tree[4*inf],a[inf];
+pair<long long, long long> tree[4*inf];
+long long a[inf];
+
+pair<long long, long long> modify(pair<long long, long long>a, pair<long long, long long>b)
+{
+  if(a.first<b.first) return a;
+  if(a.first>b.first) return b;
+  return {a.first,a.second+b.second};
+}
 
 void init(long long node, long long s, long long e)
 {
   if(s==e)
   {
-    tree[node]=a[s];
-    return;
+    tree[node]={a[s],1};
   }
-  long long left=node*2, right= 1+node*2, mid=(s+e)/2;
-  init(left,s,mid);
-  init(right,mid+1,e);
-  tree[node]=min(tree[right],tree[left]);
+ else
+ {
+   long long mid=(s+e)/2;
+  init(node*2,s,mid);
+  init(1+node*2,mid+1,e);
+  tree[node] = modify(tree[2*node],tree[1+node*2]);
+ }
 }
-
-long long fun(long long node, long long s, long long e, long long i, long long j, long long g)
+void update(long long node, long s, long long e, long long in, long long v)
 {
-  if(s>j || i>e) return 0;
-  if(s==e && s>=i && s<=j)
-  {
-    if(tree[node]==g) return 1;
-    else return 0;
-  }
-  long long left=node*2, right= 1+node*2, mid=(s+e)/2;
-  long long p=fun(left,s,mid,i,j,g), q=fun(right,mid+1,e,i,j,g);
-  return p+q;
+   if(s==e) tree[node] = {v, 1};
+    else {
+        long long mid = (s+e)/2;
+        if(in <= mid) update(2*node, s, mid, in, v); 
+        else update(2*node+1, mid+1, e,in, v);
+        tree[node] = modify(tree[2*node], tree[2*node+1]);
+    }
+
 }
 
-long long func(long long node, long long s, long long e, long long i, long long j)
+pair<long long, long long> func(long long node, long long s, long long e, long long x, long long y)
 {
-  if(s>j || i>e) return MOD;
-  if(s>=i && j>=e) return tree[node];
-  long long left=node*2, right= 1+node*2, mid=(s+e)/2;
-  long long p=func(left,s,mid,i,j), q=func(right,mid+1,e,i,j);
-  return min(p,q);
+  if(y<s || e<x) return {MOD,0};
+  if(s>=x && y>=e) return tree[node];
+  long long mid=(s+e)/2;
+ pair<long long,long long> p=func(2*node,s, mid, x, y), q=func(1+2*node, mid+1, e,x, y);
+  return modify(p,q);
 }
-
-void update(long long node, long long s, long long e, long long in, long long v)
-{
- if(in<s || e<in) return;
-  if(in<=s && e<=in)
-  {
-    tree[node]=v;
-    return;
-  }
-  long long left=node*2, right= 1+node*2, mid=(s+e)/2;
-  update(left,s,mid,in,v);
-  update(right,mid+1,e,in,v);
-  tree[node]=min(tree[right],tree[left]);
-}
-
 
 int main()
 {
@@ -67,11 +60,10 @@ int main()
   //   freopen("input.txt", "r", stdin); 
   //   freopen("output.txt", "w", stdout);
   //   #endif
-
-
-  long long n,m;
+  
+  long long n,m,i;
   cin>>n>>m;
-  for(long long i=1;i<=n;i++) cin>>a[i];
+  for(i=1;i<=n;i++) cin>>a[i];
   init(1,1,n);
   while(m--)
   {
@@ -79,17 +71,16 @@ int main()
     cin>>op;
     if(op==1)
     {
-      long long in,v;
-      cin>>in>>v;
-      update(1,1,n,in+1,v);
+      long long x,y;
+      cin>>x>>y;
+      update(1,1,n,x+1,y);
     }
     else
     {
-      long long ss,ee;
-      cin>>ss>>ee;
-      long long g=func(1,1,n,ss+1,ee);
-      long long q=fun(1,1,n,ss+1,ee,g);
-      cout<<g<<" "<<q<<endl;
+      long long x,y;
+      cin>>x>>y;
+      pair<long long, long long>a=func(1,1,n,x+1,y);
+      cout<<a.first<<" "<<a.second<<endl;
     }
   }
 }
