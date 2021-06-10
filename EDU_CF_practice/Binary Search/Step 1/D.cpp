@@ -46,8 +46,7 @@ int main()
     h=n+1;
     while(l<=h)
     {
-      mid=(h+l)/2;
-      if(y<a[mid] && l==h) break;
+      mid=(h+l)/2; 
       if(y>=a[mid]) l=mid+1;
       else h=mid;
     }
