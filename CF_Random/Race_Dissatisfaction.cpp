@@ -31,5 +31,6 @@ int main()
     d=t/x;
     if(d>=n) cout<<n*(n-1)/2<<endl;
     else cout<<(d*(d-1)/2)+((n-d)*d)<<endl;
+    
    }
 }
