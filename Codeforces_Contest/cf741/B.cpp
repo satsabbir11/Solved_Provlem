@@ -9,7 +9,6 @@ using namespace std;
 #define endl "\n"
 #define ull unsigned long long
 #define con (f?"YES":"NO")
- 
 #define sortt(s) sort(s.begin(), s.end())
 #define reversee(s) reverse(s.begin(), s.end())
 #define reversesortt(s) sortt(s); reversee(s)
