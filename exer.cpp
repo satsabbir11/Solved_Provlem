@@ -19,5 +19,5 @@ int main()
 //     freopen("/CP_OJ/output.txt", "w", stdout);
 //     #endif
 
-  cout<<"hello world"<<endl;
+  cout<<"hello world"<<endl; 
 }
