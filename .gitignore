@@ -1,4 +1,7 @@
-exer.cpp
+test.cpp
+test
+.gitignore
+test.exe
 input.txt
 output.txt
 .vscode
