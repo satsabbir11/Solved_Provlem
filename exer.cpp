@@ -14,10 +14,10 @@ int main()
 {
   FastRead;
 
-//    #ifndef sabbir
-//     freopen("/CP_OJ/input.txt", "r", stdin); 
-//     freopen("/CP_OJ/output.txt", "w", stdout);
-//     #endif
+   #ifndef sabbir
+    freopen("input.txt", "r", stdin); 
+    freopen("output.txt", "w", stdout);
+    #endif
 
   cout<<"hello world"<<endl; 
 }
