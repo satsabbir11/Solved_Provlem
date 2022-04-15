@@ -29,43 +29,29 @@ using namespace std;
  
 // for (auto& x : a) cin >> x;
 
+struct Line
+{
+    long long w,in,val;
+};
+
 
 int main(){
   long long t;
   cin>>t;
   while(t--){
-    long long n;
-    cin>>n;
-    long long in,tt=n;
-    long long a[n+2];
-    for(long long i=1;i<=n;i++){
-        cin>>a[i];
-        if(a[i]==n) in=i;
-    }
-    //cout<<in<<endl;
-    //continue;
-    vector<long long>p;
-    long long cur=n;
-    while(1){
-        long long f=in%cur;
-        p.push_back(f);
-        
-        if(cur==1) break;
-        //cout<<cur<<endl;
-        long long gg,b[cur+2],k=1;
-        for(long long i=in+1;i<=cur;i++) b[k++]=a[i];
-        for(long long i=1;i<=in;i++) b[k++]=a[i];
-        //cout<<gg<<endl;
-        //in=gg;
-            for(long long i=1;i<=cur;i++){
-                if(b[i]==(cur-1)) in=i;
-                a[i]=b[i];
-            }
-        //for(long long i=1;i<=n;i++) cout<<a[i]<<" ";
-        cur--;
-        //cout<<endl;
-    }
-    for(long long i=n-1;i>=0;i--) cout<<p[i]<<" ";
-    cout<<endl;
+    long long n,m,mx=0;
+    cin>>n>>m;
+    vector<Line>a(m);
+    for(long long i=0; i<m;i++) {cin>>a[i].in>>a[i].w; a[i].val=i;}
+    
+    sort(a.begin(),a.end(),[](Line i, Line j){
+        return i.w<j.w;
+    });
+    for(long long i=0; i<m;i++) {if(i>=2*n){a.pop_back();} else {mx+=a[i].w;}}
+    cout<<mx<<endl;
+    sort(a.begin(),a.end(),[](Line i, Line j){
+        return i.in<j.in;
+    });
+    for(long long i=0; i<n;i++) cout<<a[i].val<<" "<<a[2*n-i-1].val<<endl;
   }
 }
