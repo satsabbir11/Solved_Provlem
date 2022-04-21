@@ -41,9 +41,9 @@ long long  modPow(long long b, long long p)
 
 
 int main(){
-    long long fact[20005];
+    long long fact[2000005];
     fact[0]=1;
-    for(long long i=1;i<=20003;i++){
+    for(long long i=1;i<=2000003;i++){
         fact[i]=(fact[i-1]%MOD*i)%MOD;
     }
   long long t;
