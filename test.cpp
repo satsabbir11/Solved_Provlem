@@ -28,32 +28,10 @@ using namespace std;
 #define gap " "
  
 // for (auto& x : a) cin >> x;
-long long  modPow(long long b, long long p)
-{
-    long long r=1;
-    while(p){
-        if(p&1) r=(r*b)%MOD;
-        b=(b*b)%MOD;
-        p>>=1;
-    }
-    return r;
-}
 
 
 int main(){
-    long long fact[20005];
-    fact[0]=1;
-    for(long long i=1;i<=20003;i++){
-        fact[i]=(fact[i-1]%MOD*i)%MOD;
-    }
-  long long t;
-  cin>>t;
-  for(long long i=1;i<=t;i++){
-    long long n,k;
-    cin>>n>>k;
-    long long ans=fact[n+k-1];
-    long long r=(fact[k-1]*fact[n])%MOD;
-    ans= (ans*(modPow(r,MOD-2)))%MOD;
-    cout<<loj(i,ans)<<endl;
-  }
+  string s;
+  cin>>s;
+  cout<<(s).find("b",2)<<endl;
 }

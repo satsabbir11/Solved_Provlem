@@ -28,33 +28,12 @@ using namespace std;
 #define gap " "
  
 // for (auto& x : a) cin >> x;
-int modPow(int b, int p)
-{
-    int r = 1;
-    while(p)
-    {
-        if(p&1) r = (r*b)%MOD; //when the bit number is 1 then add the power.
-        b = (b*b)%MOD;
-        p >>= 1;
-    }
-    return r;
-}
 
 
 int main(){
-    long long fact[2000005];
-    fact[0]=1;
-    for(long long i=1;i<=2000003;i++){
-        fact[i]=(fact[i-1]%MOD*i)%MOD;
-    }
   long long t;
   cin>>t;
-  for(long long i=1;i<=t;i++){
-    long long n,k;
-    cin>>n>>k;
-    long long ans=fact[n+k-1];
-    long long r=(fact[k-1]*fact[n])%MOD;
-    ans= (ans*(modPow(r,MOD-2)))%MOD;
-    cout<<loj(i,ans)<<endl;
+  while(t--){
+    cout<<t<<endl;
   }
 }
