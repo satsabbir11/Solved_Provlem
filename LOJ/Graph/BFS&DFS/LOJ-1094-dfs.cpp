@@ -31,56 +31,79 @@ using namespace std;
 
 // for (auto& x : a) cin >> x;
 
+long long n, vis[30005],dis[30005];
+vector<long long>wt[30005],node[30005];
+
+void dfs(long long u){
+	vis[u]=1;
+	for(long long i=0;i<node[u].size();i++){
+		long long v=node[u][i];
+		if(!vis[v]){
+			vis[v]=1;
+			dis[v]=dis[u]+wt[u][i];
+			dfs(v);
+		}
+	}
+}
+
+void clr(bool f){
+	for(long long i=0;i<30005;i++){
+		vis[i]=0;
+		dis[i]=0;
+		if(f){
+			node[i].clear();
+			wt[i].clear();
+		}
+	}
+}
+
 int main() {
     FastRead
 
     long long t;
     cin >> t;
-    while (t--) {
-        long long n;
-        cin>>n;
-        
-        string s;
-        cin>>s;
-        long long cnt=0;
 
-        vector<long long>p, pp;
+    for(long long jj=1;jj<=t;jj++){
+    	clr(1);
+
+        cin>>n;
+        long long x,y,z;
+        for(long long i=1;i<n;i++){
+        	
+        	cin>>x>>y>>z;
+
+        	node[x].push_back(y);
+        	node[y].push_back(x);
+
+        	wt[x].push_back(z);
+        	wt[y].push_back(z);
+        }
+
+        dfs(0);
+
+
+        long long first, mx=0;
 
         for(long long i=0;i<n;i++){
-            long long ab=n-i-1;
-            if(s[i]=='R'){
-                cnt+=ab;
-                if(ab<i) p.push_back((i-ab));
-                //cout<<ab<<" ";
-            }
-            else{
-                cnt+=i;
-                if(ab>i) p.push_back((ab-i));
-                //cout<<i<<" ";
-            }
-
+        	if(mx<dis[i]){
+        		mx=dis[i];
+        		first=i;
+        	}
         }
-        //cout<<endl;
-        
-        reversesortt(p);
 
-        //for(int i=0;i<p.size();i++) cout<<p[i]<<" ";
-        // //cout<<endl<<cnt<<endl;
-        int gg=p.size();
-        
-        for(int i=1;i<=(n-gg);i++) p.push_back(0);
-        long long tem=0;
-        for(int i=0;i<n;i++){
-            if(i==0){
-                cout<<p[i]+cnt<<" ";
-                tem=p[i]+cnt;
-            }
-            else{
-                cout<<p[i]+tem<<" ";
-                tem=p[i]+tem;
-            }
+        clr(0);
 
+        dfs(first);
+        mx=0;
+
+        for(long long i=0;i<n;i++){
+        	if(mx<dis[i]){
+        		mx=dis[i];
+        		first=i;
+        	}
         }
-        cout<<endl;
+
+        cout<<loj(jj,mx)<<endl;
+
     }
 }

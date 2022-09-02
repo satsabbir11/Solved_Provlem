@@ -47,13 +47,13 @@ int main() {
         int f1=0, f2=0, f3=0, f4=0, f5=0;
 
         for(int i=0;i<n;i++){
-        	if(s[i]=='T') f1++;
-        	else if(s[i]=='i') f2++;
-        	else if(s[i]=='m') f3++;
-        	else if(s[i]=='u') f4++;
-        	else if(s[i]=='r') f5++;
+            if(s[i]=='T') f1++;
+            else if(s[i]=='i') f2++;
+            else if(s[i]=='m') f3++;
+            else if(s[i]=='u') f4++;
+            else if(s[i]=='r') f5++;
         }
-        if(f1==1 && f2==1 && f3==1 && f4==1 && f5==1) f=true;
+        if(f1==1 && f2==1 && f3==1 && f4==1 && f5==1 && n==5) f=true;
         cout<<con<<endl;
     }
 }

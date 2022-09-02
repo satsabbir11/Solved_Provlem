@@ -34,53 +34,21 @@ using namespace std;
 int main() {
     FastRead
 
-    long long t;
-    cin >> t;
-    while (t--) {
+    while (1) {
         long long n;
         cin>>n;
+        if(!n) break;
+
+        long long d=n%10;
+
+        long long final = (n/10)-(5*d);
+        final=abs(final);
+
+
         
-        string s;
-        cin>>s;
-        long long cnt=0;
+        bool f=false;
+        if(final%17==0) f=true;
 
-        vector<long long>p, pp;
-
-        for(long long i=0;i<n;i++){
-            long long ab=n-i-1;
-            if(s[i]=='R'){
-                cnt+=ab;
-                if(ab<i) p.push_back((i-ab));
-                //cout<<ab<<" ";
-            }
-            else{
-                cnt+=i;
-                if(ab>i) p.push_back((ab-i));
-                //cout<<i<<" ";
-            }
-
-        }
-        //cout<<endl;
-        
-        reversesortt(p);
-
-        //for(int i=0;i<p.size();i++) cout<<p[i]<<" ";
-        // //cout<<endl<<cnt<<endl;
-        int gg=p.size();
-        
-        for(int i=1;i<=(n-gg);i++) p.push_back(0);
-        long long tem=0;
-        for(int i=0;i<n;i++){
-            if(i==0){
-                cout<<p[i]+cnt<<" ";
-                tem=p[i]+cnt;
-            }
-            else{
-                cout<<p[i]+tem<<" ";
-                tem=p[i]+tem;
-            }
-
-        }
-        cout<<endl;
+        cout<<f<<endl;
     }
 }
