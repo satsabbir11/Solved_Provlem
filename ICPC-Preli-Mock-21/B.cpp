@@ -1,54 +1,34 @@
-
-//بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-
 #include<bits/stdc++.h>
 using namespace std;
 #define FastRead ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
-#define pi acos(-1)
-#define MOD 1000000007
-#define inf 1000010
-#define endl "\n"
-#define ull unsigned long long
-#define con (f?"YES":"NO")
-
-#define CLR(a) memset(a, -1, sizeof(a))
-#define CLN(a) memset(a, 0, sizeof(a))
-
-#define max3(a,b,c) max(max(a,b),c)
-#define min3(a,b,c) min(min(a,b),c)
-#define max4(a,b,c,d) max(a,max3(b,c,d))
-#define min4(a,b,c,d) min(a,min3(b,c,d))
-#define max5(a,b,c,d,e) max(max4(a,b,c,d),e)
-#define min5(a,b,c,d,e) min(min4(a,b,c,d),e)
-
-#define sortn(a,n,m) sort(a+m, s+m+n)
-#define sortt(s) sort(s.begin(), s.end())
-#define reversee(s) reverse(s.begin(), s.end())
-#define reversesortt(s) sortt(s); reversee(s)
-#define pb push_back
-#define loj(i,j) "Case "<<i<<": "<<j
-#define gap " "
 
 // for (auto& x : a) cin >> x;
 
 int main() {
     FastRead
 
-    while (1) {
-        long long n;
-        cin>>n;
-        if(!n) break;
+    int t;
+    scanf("%d",&t);
+    for(int jj=1;jj<=t;jj++) {
+        int a[3],k, tot=0;
+        for(int i=0;i<3;i++){
+            scanf("%d",&a[i]);
+            tot+=a[i];
+        }
+       scanf("%d",&k);
 
-        long long d=n%10;
-
-        long long final = (n/10)-(5*d);
-        final=abs(final);
-
-
-        
         bool f=false;
-        if(final%17==0) f=true;
+        sort(a,a+3);
+        long long avg=tot/3;
+        
+         for(int i=1;i<=3;i++){
+            if(abs(avg-a[i])%k==0 && avg%3==0) f=true;
+            else f=false;
+         }
 
-        cout<<f<<endl;
+
+
+        if(tot%3==0 && f) printf("Case %d: Peaceful",jj);
+        else printf("Case %d: Fight",jj);
     }
 }
