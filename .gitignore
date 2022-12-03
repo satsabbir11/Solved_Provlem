@@ -1,0 +1,8 @@
+test1.cpp
+test2.cpp
+*.in
+*.exe
+*.bin
+.vscode
+.idea
+.cph
