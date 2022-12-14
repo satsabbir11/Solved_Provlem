@@ -6,3 +6,5 @@ test2.cpp
 .vscode
 .idea
 .cph
+.cphpp
+test.py
