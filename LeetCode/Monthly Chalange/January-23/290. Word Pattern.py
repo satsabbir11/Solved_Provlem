@@ -17,3 +17,6 @@ class Solution:
        q.append(map2[word])
 
      return p == q
+
+object = Solution()
+print(object.wordPattern("abca","cat dog bang cat"))

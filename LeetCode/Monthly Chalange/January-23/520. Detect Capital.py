@@ -12,3 +12,6 @@ class Solution:
             if (word[0].isupper() and cnt2+1==len(word)) or cnt2==len(word):
                 return True
         return False
+
+object  = Solution ()
+print (object.detectCapitalUse( "UsA" ))
