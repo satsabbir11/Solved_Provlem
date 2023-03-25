@@ -113,9 +113,12 @@ int main() {
             else j++;
 
             if(i==x2 && j==y2) break;
+
+
+
             if(i==x1 && j==y1){
                 fnt++;
-                if(fnt==10){
+                if(fnt==4){
                     f=true;
                     break;
                 }
