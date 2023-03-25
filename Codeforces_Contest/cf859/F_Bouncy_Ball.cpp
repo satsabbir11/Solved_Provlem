@@ -43,11 +43,7 @@ int main() {
         string s;
         cin>>n>>m>>x1>>y1>>x2>>y2>>s;
 
-        long long a[n+2][m+2]={};
-
-        for(long long i=1;i<=n;i++){
-            for(long long j=1;j<=m;j++) a[i][j]=1;
-        }
+        long long a[n+2][m+2];
 
         long long i=x1, j=y1, cnt=0, fnt=0;
         bool f=false;
@@ -58,49 +54,26 @@ int main() {
         }
 
         while(1){
-            //cout<<i<<" "<<j<<" "<<s<<endl;
+            bool g= false;
 
-            if(i==1 && j==1 && s[0]=='U' && s[1]=='L'){
+            if(i==1 && s[0]=='U'){
                 s[0]='D';
-                s[1]='R';
-                cnt++;
-                continue;
-            }
-            else if(i==n && j==m && s[0]=='D' && s[1]=='R'){
-                s[0]='U';
-                s[1]='L';
-                cnt++;
-                continue;
-            }
-            else if(i==1 && j==m && s[0]=='U' && s[1]=='R'){
-                s[0]='D';
-                s[1]='L';
-                cnt++;
-                continue;
-            }
-            else if(i==n && j==1 && s[0]=='D' && s[1]=='L'){
-                s[0]='U';
-                s[1]='R';
-                cnt++;
-                continue;
-            }
-            else if(i==1 && s[0]=='U'){
-                s[0]='D';
-                cnt++;
-                continue;
+                g=true;
             }
             else if(i==n && s[0]=='D'){
                 s[0]='U';
-                cnt++;
-                continue;
+                g=true;
             }
-            else if(j==1 && s[1]=='L'){
+            if(j==1 && s[1]=='L'){
                 s[1]='R';
-                cnt++;
-                continue;
+                g=true;
             }
             else if(j==m && s[1]=='R'){
                 s[1]='L';
+                g=true;
+            }
+
+            if(g){
                 cnt++;
                 continue;
             }
