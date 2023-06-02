@@ -51,7 +51,7 @@ int main() {
         for(int i=1;i<=n;i++) cum[i]=a[i]+cum[i-1];
 
         long long ans =0;
-        for(int i=n-k,j=0;i<=n;i++,j+=2) ans = max(ans, cum[i]-cum[j]);
+        for(int i=0;i<=k;i++) ans = max(ans, cum[n-k+i]-cum[2*i]);
         cout<<ans<<endl;
     }
 }
