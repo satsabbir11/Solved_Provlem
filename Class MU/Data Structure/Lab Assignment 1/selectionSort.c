@@ -4,7 +4,7 @@ void selectionSort(int a[], int n){
     for(int i=0;i<n-1;i++){
         int minValueIndex = i;
         for(int j=i+1;j<n;j++){
-            if(a[i]>a[j]) minValueIndex = j;
+            if(a[minValueIndex]>a[j]) minValueIndex = j;
         }
         int tem = a[i];
         a[i] = a[minValueIndex];
@@ -13,7 +13,7 @@ void selectionSort(int a[], int n){
 }
 
 int main(){
-    int a[]={6,5,4,3,2,1};
+    int a[]={12, 5, 23, 7, 18, 2, 0};
     int n = sizeof(a)/sizeof(a[0]);
     selectionSort(a, n);
 
