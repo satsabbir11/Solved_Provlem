@@ -13,7 +13,7 @@ using namespace std;
 */
 
 
-vector<int>generateDivisor(int n){
+vector<int>generateDivisor(int n= 1e6){
     vector<int>divisor(n+1, 1);
     for(int i=2;i<=n;i++){
         if(divisor[i]==1){
@@ -32,7 +32,7 @@ vector<int>generateDivisor(int n){
 
 int main(){
     int n = 12;
-    vector<int>divisor = generateDivisor(n);
+    vector<int>divisor = generateDivisor();
     for(int i=1;i<=n;i++){
         cout<<i<<" "<<divisor[i]<<endl;
     }
