@@ -2,18 +2,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Segment Tree Node
-struct Node
-{
-    long long sum;
-};
 
 // Function to build the Segment Tree
-void buildSegmentTree(vector<int> &arr, vector<Node> &segTree, int node, int left, int right)
+void buildSegmentTree(vector<int> &arr, vector<long long> &segTree, int node, int left, int right)
 {
     if (left == right)
     {
-        segTree[node].sum = arr[left];
+        segTree[node] = arr[left];
         return;
     }
 
@@ -21,16 +16,16 @@ void buildSegmentTree(vector<int> &arr, vector<Node> &segTree, int node, int lef
     buildSegmentTree(arr, segTree, 2 * node + 1, left, mid);
     buildSegmentTree(arr, segTree, 2 * node + 2, mid + 1, right);
 
-    segTree[node].sum = segTree[2 * node + 1].sum + segTree[2 * node + 2].sum;
+    segTree[node] = segTree[2 * node + 1] + segTree[2 * node + 2];
 }
 
 // Function to query the Segment Tree for sum in range [l, r]
-long long querySegmentTree(vector<Node> &segTree, int node, int left, int right, int l, int r)
+long long querySegmentTree(vector<long long> &segTree, int node, int left, int right, int l, int r)
 {
     if (left > r || right < l) // No overlap
         return 0;
     if (left >= l && right <= r) // Fully contained
-        return segTree[node].sum;
+        return segTree[node];
 
     int mid = left + (right - left) / 2;
     return querySegmentTree(segTree, 2 * node + 1, left, mid, l, r) +
@@ -38,11 +33,11 @@ long long querySegmentTree(vector<Node> &segTree, int node, int left, int right,
 }
 
 // Function to update the Segment Tree
-void updateSegmentTree(vector<Node> &segTree, int node, int left, int right, int index, int value)
+void updateSegmentTree(vector<long long> &segTree, int node, int left, int right, int index, int value)
 {
     if (left == right)
     {
-        segTree[node].sum = value;
+        segTree[node] = value;
         return;
     }
 
@@ -52,7 +47,7 @@ void updateSegmentTree(vector<Node> &segTree, int node, int left, int right, int
     else
         updateSegmentTree(segTree, 2 * node + 2, mid + 1, right, index, value);
 
-    segTree[node].sum = segTree[2 * node + 1].sum + segTree[2 * node + 2].sum;
+    segTree[node] = segTree[2 * node + 1] + segTree[2 * node + 2];
 }
 
 int main()
@@ -68,7 +63,7 @@ int main()
         for (int i = 0; i < n; ++i)
             cin >> arr[i];
 
-        vector<Node> segTree(4 * n); // The segment tree will have a size of at most 4 times the input array size.
+        vector<long long> segTree(4 * n); // The segment tree will have a size of at most 4 times the input array size.
 
         buildSegmentTree(arr, segTree, 0, 0, n - 1);
 
