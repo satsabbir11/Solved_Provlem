@@ -14,16 +14,16 @@ using namespace std;
 
 
 vector<int>generateDivisor(int n= 1e6){
-    vector<int>divisor(n+1, 1);
+    vector<int>divisor(n+1, 1); // by default all divisor number is 1
     for(int i=2;i<=n;i++){
-        if(divisor[i]==1){
-            for(int j=i;j<=n;j+=i){
+        if(divisor[i]==1){ // that means i is prime
+            for(int j=i;j<=n;j+=i){ // selet all multiple of prime j
                 int num = j, primeFactor = 0;
                 while(num%i==0){
                     num/=i;
-                    primeFactor++;
+                    primeFactor++; //find how many prime factor i lies in the j
                 }
-                divisor[j] *= (primeFactor+1);
+                divisor[j] *= (primeFactor+1); //multiple all combination of primefactor = total divisor
             }
         }
     }
