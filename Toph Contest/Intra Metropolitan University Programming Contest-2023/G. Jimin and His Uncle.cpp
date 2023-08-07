@@ -78,7 +78,7 @@ int main()
             {
                 int l, r, s;
                 cin >> l >> r >> s;
-                if (getSum(l--, r--, tree) == s)
+                if (getSum(l-1, r-1, tree) == s)
                     cout << "YES" << endl;
                 else
                     cout << "NO" << endl;
