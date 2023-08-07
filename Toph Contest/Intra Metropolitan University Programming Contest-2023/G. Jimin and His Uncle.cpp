@@ -1,98 +1,88 @@
-
 #include <bits/stdc++.h>
 using namespace std;
+int n;
 
-
-// Function to build the Segment Tree
-void buildSegmentTree(vector<int> &arr, vector<long long> &segTree, int node, int left, int right)
+void buildTree(vector<int> &a, vector<int> &tree, int node = 0, int l = 0, int r = n - 1)
 {
-    if (left == right)
+    if (l == r)
     {
-        segTree[node] = arr[left];
+        tree[node] = a[l];
         return;
     }
 
-    int mid = left + (right - left) / 2;
-    buildSegmentTree(arr, segTree, 2 * node + 1, left, mid);
-    buildSegmentTree(arr, segTree, 2 * node + 2, mid + 1, right);
+    int left = 2 * node +1, right = 2 * node + 2;
+    int mid = l + (r - l) / 2;
 
-    segTree[node] = segTree[2 * node + 1] + segTree[2 * node + 2];
+    buildTree(a, tree, left, l, mid);
+    buildTree(a, tree, right, mid + 1, r);
+
+    tree[node] = tree[right] + tree[left];
 }
 
-// Function to query the Segment Tree for sum in range [l, r]
-long long querySegmentTree(vector<long long> &segTree, int node, int left, int right, int l, int r)
+void updateTree(int i, int value, vector<int> &tree, int node = 0, int l = 0, int r = n - 1)
 {
-    if (left > r || right < l) // No overlap
-        return 0;
-    if (left >= l && right <= r) // Fully contained
-        return segTree[node];
-
-    int mid = left + (right - left) / 2;
-    return querySegmentTree(segTree, 2 * node + 1, left, mid, l, r) +
-           querySegmentTree(segTree, 2 * node + 2, mid + 1, right, l, r);
-}
-
-// Function to update the Segment Tree
-void updateSegmentTree(vector<long long> &segTree, int node, int left, int right, int index, int value)
-{
-    if (left == right)
+    if (l == r)
     {
-        segTree[node] = value;
+        tree[node] = value;
         return;
     }
 
-    int mid = left + (right - left) / 2;
-    if (index <= mid)
-        updateSegmentTree(segTree, 2 * node + 1, left, mid, index, value);
-    else
-        updateSegmentTree(segTree, 2 * node + 2, mid + 1, right, index, value);
+    int left = 2 * node +1, right = 2 * node + 2;
+    int mid = l + (r - l) / 2;
 
-    segTree[node] = segTree[2 * node + 1] + segTree[2 * node + 2];
+    if(i<=mid) updateTree(i, value, tree, left, l, mid);
+    else updateTree(i, value, tree, right, mid + 1, r);
+
+    tree[node] = tree[right] + tree[left];
+}
+
+int getSum(int i, int j, vector<int> &tree, int node = 0, int l = 0, int r = n - 1)
+{
+    if(i>r || j<l) return 0;
+    if(i<=l && r<=j) return tree[node];
+
+    int left = 2 * node +1, right = 2 * node + 2;
+    int mid = l + (r - l) / 2;
+
+    return getSum(i, j, tree, left, l, mid) + getSum(i, j, tree, right, mid+1, r);
 }
 
 int main()
 {
     int t;
     cin >> t;
+
     while (t--)
     {
-        int n, q;
+        int q;
         cin >> n >> q;
 
-        vector<int> arr(n);
-        for (int i = 0; i < n; ++i)
-            cin >> arr[i];
-
-        vector<long long> segTree(4 * n); // The segment tree will have a size of at most 4 times the input array size.
-
-        buildSegmentTree(arr, segTree, 0, 0, n - 1);
+        vector<int> a(n), tree(4 * n);
+        for (int i = 0; i < n; i++)
+            cin >> a[i];
+        buildTree(a, tree);
 
         while (q--)
         {
             int type;
             cin >> type;
 
-            if (type == 2)
+            if (type == 1)
+            {
+                int index, value;
+                cin >> index >> value;
+                updateTree(index--, value, tree);
+            }
+
+            else
             {
                 int l, r, s;
                 cin >> l >> r >> s;
-                --l; // Convert to 0-indexed
-                --r; // Convert to 0-indexed
-                int ans = querySegmentTree(segTree, 0, 0, n - 1, l, r);
-                if (ans == s)
+                if (getSum(l--, r--, tree) == s)
                     cout << "YES" << endl;
                 else
                     cout << "NO" << endl;
             }
-            else if (type == 1)
-            {
-                int i, v;
-                cin >> i >> v;
-                --i; // Convert to 0-indexed
-                updateSegmentTree(segTree, 0, 0, n - 1, i, v);
-            }
         }
     }
-
-    return 0;
 }
