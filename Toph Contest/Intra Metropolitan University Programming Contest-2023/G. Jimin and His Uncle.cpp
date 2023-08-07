@@ -71,7 +71,7 @@ int main()
             {
                 int index, value;
                 cin >> index >> value;
-                updateTree(index--, value, tree);
+                updateTree(index-1, value, tree);
             }
 
             else
