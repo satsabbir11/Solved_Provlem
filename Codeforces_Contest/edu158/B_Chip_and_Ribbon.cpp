@@ -7,19 +7,19 @@ using namespace std;
 int main() {
    ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
 
-    long long  t;
+    long long t;
     cin >> t;
     while (t--) {
-        long long  i, j;
-        cin>>i>>j;
-
-        long long cnt =0;
+        long long n;
+        cin>>n;
         
-        while(i!=j){
-            if(i<j) j/=2;
-            else i/=2;
-            cnt++;
+        long long prev=1, cur, ans =0;
+        for(long long i=1;i<=n;i++){
+            cin>>cur;
+            if(prev<=cur) ans+=(cur-prev);
+            prev = cur;
         }
-        cout<<cnt<<endl;
+
+        cout<<ans<<endl;
     }
 }
