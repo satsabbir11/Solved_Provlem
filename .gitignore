@@ -12,8 +12,4 @@ test1.py
 *.prob
 test.cpp
 
-//all folder Vjude
-
-Vjudge/GraphTheoryMarathon01/*
-Vjudge/MUNumberTheoryMarathon-02/*
-Vjudge/MUNumberTheoryMarathon1/*
+Vjudge/*
