@@ -6,14 +6,11 @@ using namespace std;
 
 string s;
 
-int traverse(vector<vector<int>> &p, int u, int par, char c)
+int traverse(vector<vector<int>> &p, int u, int par)
 {
-    int ans = 0;
-    if (s[u - 1] != c)
-        ans++;
-
-    if (p[u][0]==0 && p[u][1]==0)
-        return ans;
+    //cout<<u<<endl;
+    if (p[u][0] == 0 && p[u][1] == 0)
+        return 0;
 
     int x, y;
     x = y = INT_MAX;
@@ -21,16 +18,20 @@ int traverse(vector<vector<int>> &p, int u, int par, char c)
     for (int i = 0; i < p[u].size(); i++)
     {
         int v = p[u][i];
-        if (par != v)
+        if (par != v && v)
         {
-            if (v != 0 && i == 0)
-                x = traverse(p, v, u, 'L');
-            else if (v != 0 && i == 1)
-                y = traverse(p, v, u, 'R');
+            if (i == 0){
+                if(s[u-1] == 'L') x = traverse(p, v, u);
+                else x = 1+traverse(p, v, u);
+            }
+            else{
+                if(s[u-1] == 'R') y = traverse(p, v, u);
+                else y = 1+traverse(p, v, u);
+            }
         }
     }
 
-    return ans + min(x, y);
+    return min(x, y);
 }
 
 int main()
@@ -56,7 +57,7 @@ int main()
             p[i].push_back(x);
             p[i].push_back(y);
         }
-        cout << min(traverse(p, 1, 0, 'L'), traverse(p, 1, 0, 'R')) << endl;
+        cout << traverse(p, 1, 0) << endl;
     }
 
     return 0;
