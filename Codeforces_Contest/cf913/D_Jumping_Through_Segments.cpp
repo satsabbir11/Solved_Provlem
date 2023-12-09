@@ -10,16 +10,7 @@ int main() {
     long long t;
     cin >> t;
     while (t--) {
-        int n;
+        long long n;
         cin>>n;
-        
-        string s;
-        cin>>s;
-
-        array<int, 26>cnt ={};
-
-        for(char c: s) cnt[c-'a']++;
-
-        cout<<max(n%2, 2**max_element(cnt.begin(), cnt.end())-n)<<endl;
     }
 }
