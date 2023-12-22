@@ -29,58 +29,44 @@ using namespace std;
 
 #define auto(x, a) for (auto &x : a)
 
-int dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
-int dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
+long long dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
+long long dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0), cout.tie(0);
 
-    int t;
+    long long t;
     cin >> t;
     while (t--)
     {
-        int n;
+        long long n, ans=0;
         cin >> n;
 
-        int a[n + 2], b[n + 2];
+        long long a[n + 2], b[n + 2];
 
-        pair<int, int> p[n + 2], q[n + 2];
+        for(long long i=0;i<n;i++) cin>>a[i];
+        for(long long i=0;i<n;i++) cin>>b[i];
 
-        for (int i = 0; i < n; i++)
-        {
-            cin >> a[i];
-            p[i].first = a[i];
-            p[i].second = i;
+        vector<int>v(n);
+
+        iota(v.begin(), v.end(), 0);
+
+
+        sort(v.begin(), v.end(),[&](long long x, long long y){
+            return a[x]+b[x]>a[y]+b[y];
+        });
+
+        long long g=0;
+        for(long long i: v){
+
+            //cout<<a[i]<<" "<<b[i]<<endl;
+            if(g&1) ans-=b[i]-1;
+            else ans+=a[i]-1;
+
+            g++;
         }
-
-        for (int i = 0; i <n; i++)
-        {
-            cin >> b[i];
-            q[i].first = b[i];
-            q[i].second = i;
-        }
-
-        sort(p, p + n, [](const pair<int, int> &a, const pair<int, int> &b)
-             { return a.first > b.first; });
-        sort(q, q + n, [](const pair<int, int> &a, const pair<int, int> &b)
-             { return a.first > b.first; });
-
-        int sum = 0;
-        bool f=true;
-        for (int i = 0; i < n; i++)
-        {
-            if(f){
-                int x = p[i].first-1-q[p[i].second].first, y = p[q[i].second].first- q[i].first;
-                if(x>y) sum+=x;
-                else sum-=y;
-                
-            }else{
-                sum-=(q[i].first-1-p[i].first);
-            }
-        }
-
-        cout << sum << endl;
+        cout<<ans<<endl;
     }
 }
