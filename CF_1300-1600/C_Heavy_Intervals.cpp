@@ -30,34 +30,37 @@ using namespace std;
 
 #define auto(x,a) for (auto& x : a)
 
-long long dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
-long long dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
+int dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
+int dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
+
+struct arr{
+    int l, r, c;
+};
 
 int main() {
    ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
 
-    long long t;
+    int t;
     cin >> t;
     while (t--) {
-        long long n;
+        int n;
         cin>>n;
         
-        long long a[n+2];
-        for(long long i=1;i<=n;i++){
-            cin>>a[i];
-            if(i%2) a[i] = - a[i];
-        }
+        int b[n+2], c[n+2], a[n+2];
+        for(int i=1;i<=n;i++) cin>>a[i];
+        for(int i=1;i<=n;i++) cin>>b[i];
+        for(int i=1;i<=n;i++) cin>>c[i];
 
-        bool f=false;
-        map<long long, bool>mp;
-        mp[0]=true;
-        long long sum = 0;
-        for(long long i=1;i<=n;i++){
-            sum+=a[i];
-            f = mp[sum];
-            if(f) break;
-            mp[sum] =true;
-        }
-        cout<<con<<endl;
+        sort(a+1, a+1+n);
+        sort(b+1, b+1+n);
+        sort(c+1, c+1+n,[](int x, int y){
+            return x>y;
+        });
+
+        int ans =0;
+
+        for(int i=1;i<=n;i++) ans+=((b[i]-a[i])*c[i]);
+
+        cout<<ans<<endl;
     }
 }
