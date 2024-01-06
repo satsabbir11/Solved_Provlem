@@ -44,7 +44,7 @@ int main() {
         long long a, b;
         cin>>a>>b;
         
-        if(a%2 == b%2) cout<<"Bob"<<endl;
+        if((a+b)%2==0) cout<<"Bob"<<endl;
         else cout<<"Alice"<<endl;
     }
 }

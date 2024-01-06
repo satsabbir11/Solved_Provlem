@@ -52,34 +52,22 @@ int main()
         }
 
         long long cnt = 0;
+
         long long l1, l2;
-        l1 = l2 = n;
+        l1 = l2 = INT_MAX;
 
         for (long long i = 1; i <= n; i++)
         {
-            if (l1 <= l2)
-            {
-                if (a[i] <= l1)
-                    l1 = a[i];
-                else if (a[i] <= l2)
-                    l2 = a[i];
-                else
-                {
-                    l1 = a[i];
-                    cnt++;
-                }
-            }
+            if (l1 > l2)
+                swap(l1, l2);
+            if (a[i] <= l1)
+                l1 = a[i];
+            else if (a[i] <= l2)
+                l2 = a[i];
             else
             {
-                if (a[i] <= l2)
-                    l2 = a[i];
-                else if (a[i] <= l1)
-                    l1 = a[i];
-                else
-                {
-                    l2 = a[i];
-                    cnt++;
-                }
+                l1 = a[i];
+                cnt++;
             }
         }
         cout << cnt << endl;
