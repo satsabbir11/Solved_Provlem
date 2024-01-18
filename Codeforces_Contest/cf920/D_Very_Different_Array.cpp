@@ -30,32 +30,44 @@ using namespace std;
 
 #define auto(x,a) for (auto& x : a)
 
-long long dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
-long long dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
+int dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
+int dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
 
 int main() {
    ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
 
-    long long t;
+    int t;
     cin >> t;
     while (t--) {
-        long long n, m;
+        int n, m;
         cin>>n>>m;
         
-        vector<long long>a(n+m);
-        map<long long, long long>mp;
-        for(long long i=0;i<n+m;i++){
-            cin>>a[i];
-            if(i<n)  mp[a[i]]++;
-        }
+        int a[n+2], b[m+2];
+        for(int i=1;i<=n;i++) cin>>a[i];
+        for(int i=1;i<=m;i++) cin>>b[i];
 
-        sortv(a); 
-        
-        for(long long i=0;i<n+m;i++){
-            if(mp[a[i]]){
-                 
+        sortn(a, 1, n);
+        sortn(b, 1, m);
+
+        long long l, r, left, right, ans=0;
+        l=left=1;
+        r = n;
+        right = m;
+
+        while(l<=r){
+            long long x = abs(a[l]-b[right]);
+            long long y = abs(a[r]-b[left]);
+
+            if(x>y){
+                l++;
+                right--;
+                ans+=x;
+            }else{
+                r--;
+                left++;
+                ans+=y;
             }
         }
-        
+        cout<<ans<<endl;
     }
 }
