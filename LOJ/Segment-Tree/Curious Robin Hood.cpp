@@ -1,28 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define MAXN 100005
 
-long long BIT[MAXN];
-
-void update(long long idx, long long val, long long n)
+int update(int *tree, int *a, int node, int l, int r, int i=0)
 {
-    while (idx <= n)
-    {
-        BIT[idx] += val;
-        idx += (idx & -idx);
-    }
+    if (i && (r < i || l > i))
+        return tree[node];
+
+    if (l==r) return tree[node] = a[l];
+       
+    int left = 2 * node;
+    int right = left + 1;
+
+    int mid = l + (r - l) / 2;
+
+    return tree[node] = update(tree, a, left, l, mid, i) + update(tree, a, right, mid + 1, r, i);
 }
 
-long long query(long long idx)
+int getS(int *tree, int *a, int node, int l, int r, int rl, int rr)
 {
-    long long sum = 0;
-    while (idx > 0)
-    {
-        sum += BIT[idx];
-        idx -= (idx & -idx);
-    }
-    return sum;
+    if (rr < l || rl > r)
+        return 0;
+
+   if (rl <= l && r<=rr)
+        return tree[node];
+
+    int left = 2 * node;
+    int right = left + 1;
+
+    int mid = l + (r - l) / 2;
+
+    return getS(tree, a, left, l, mid, rl, rr) + getS(tree, a, right, mid + 1, r, rl, rr);
 }
 
 int main()
@@ -30,50 +38,46 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(0), cout.tie(0);
 
-    long long t, ii = 1;
+    int t, ii = 1;
     cin >> t;
     while (t--)
     {
-        long long n, q;
+        int n, q;
         cin >> n >> q;
 
-        long long a[n + 2];
-        memset(BIT, 0, sizeof(BIT));
-
-        for (long long i = 1; i <= n; i++)
-        {
+        int a[n + 2], tree[4 * n + 10];
+        for (int i = 1; i <= n; i++)
             cin >> a[i];
-            update(i, a[i], n);
-        }
+
+        update(tree, a, 1, 1, n);
 
         cout << "Case " << ii++ << ": " << endl;
 
         while (q--)
         {
-            long long ty;
+            int ty;
             cin >> ty;
             if (ty == 1)
             {
-                long long x;
+                int x;
                 cin >> x;
                 cout << a[x + 1] << endl;
-                update(x + 1, -a[x + 1], n); // Subtract the old value
-                a[x + 1] = 0; // Update the array with the new value
+                a[x + 1] = 0;
+                update(tree, a, 1, 1, n, x + 1);
             }
             else if (ty == 3)
             {
-                long long x, y;
+                int x, y;
                 cin >> x >> y;
-                cout << query(y + 1) - query(x) << endl;
+                cout << getS(tree, a, 1, 1, n, x + 1, y + 1) << endl;
             }
             else
             {
-                long long x, y;
+                int x, y;
                 cin >> x >> y;
-                update(x + 1, y, n); // Add the new value
+                a[x + 1] += y;
+                update(tree, a, 1, 1, n, x + 1);
             }
         }
     }
-
-    return 0;
 }
