@@ -72,7 +72,7 @@ int main()
         long long cnt = 0, ans=0;
 
         for(auto x: s){
-            ans+=(mp[x]>=3?nCr(mp[x], 3):0) + (mp[x]>=2?nCr(mp[x], 2) * cnt : 0);
+            ans+=nCr(mp[x], 3) + nCr(mp[x], 2) * cnt;
             cnt+=mp[x];
         }
 
