@@ -30,31 +30,27 @@ using namespace std;
 
 #define auto(x,a) for (auto& x : a)
 
-int dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
-int dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
+long long dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
+long long dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
 
 int main() {
    ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        int n;
-        cin>>n;
-        int a[n+2], b[n+2], o, th;
-        for(int i=1;i<=n;i++){
-            cin>>a[i];
-            if(a[i]==1) o = i;
-            if(a[i]==3) th = i;
-        }
-        if(n==1 || n==2){
-            cout<<-1<<endl;
-            continue;
+    long long tt;
+    cin >> tt;
+    while (tt--) {
+        string s, t;
+        cin>>s>>t;
+        long long n=s.size();
+
+        bool f=false;
+        
+        for(long long i=0;i<n;i++){
+            if(s[i]==t[i] && s[i+1]==t[i+1]){
+                if(s[i]=='0' && s[i+1]=='1') {yes; f=true; break; }
+            }
         }
 
-        swap(a[o], a[th]);
-
-        for(int i=1;i<=n;i++) cout<<a[i]<<" ";
-        cout<<endl;
+        if(!f) no;
     }
 }
