@@ -1,29 +1,25 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
+#define endl "\n"
+#define print(x) cout << #x << " = " << x << endl
 
-int main(){
-    int t;
-    cin>>t;
-    while(t--){
-        int n;
-        cin>>n;
-        int ans=0;
-        int cnt [3]={};
-        for(int i=1;i<=n;i++){
-            int x;
-            cin>>x;
-            if(x%3){
-                cnt[x%3]++;
-            }else ans++;
+int main() {
+   ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
+
+   string s, t;
+   cin>>s>>t;
+   long long n = s.size(), m = t.size(), res=0, fe=-1, se;
+
+   long long dp[n+2][m+2]={};
+
+   for(long long i=1;i<=n;i++){
+    for(long long j=1; j<=m;j++){
+        dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+        if(s[i-1]==t[j-1]){
+            dp[i][j] = max(dp[i][j], dp[i-1][j-1] + 1);
         }
-        int mn = min(cnt[1], cnt[2]);
-        ans+=mn;
-        cnt[1]-=mn;
-        cnt[2]-=mn;
-
-        ans+=cnt[1]/3;
-        ans+=cnt[2]/3;
-
-        cout<<ans<<endl;
+        res = max(res, dp[i][j]);
     }
+   }
+   cout<<res<<endl;
 }

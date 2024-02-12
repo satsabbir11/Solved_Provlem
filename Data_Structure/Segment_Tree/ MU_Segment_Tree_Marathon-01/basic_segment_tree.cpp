@@ -1,67 +1,104 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void build(int *tree, int *a, int node, int l, int r){
-    if(l==r){
+void build(long long *tree, long long *lazy, long long *a, long long node, long long l, long long r)
+{
+    lazy[node] = 0;
+    if (l == r)
+    {
         tree[node] = a[l];
         return;
     }
 
-    int left = 2*node, right= left+1;
-    int mid = (l+r)/2; // l + (r-l)/2
-    
-    build(tree, a, left, l, mid);
-    build(tree, a, right, mid+1, r);
+    long long left = 2 * node, right = left + 1, mid = l + (r - l) / 2;
 
+    build(tree, lazy, a, left, l, mid);
+    build(tree, lazy, a, right, mid + 1, r);
     tree[node] = tree[left] + tree[right];
 }
 
-int query(int *tree, int *a, int node, int l, int r, int begin, int end){
-    if(r<begin || end<l) return 0;
-    
-    if(begin<=l && r<=end){
+void propagate(long long *tree, long long *lazy, long long node, long long l, long long r)
+{
+    if (lazy[node])
+    {
+        tree[node] += (r - l + 1) * lazy[node];
+        if (l != r)
+        {
+            lazy[2 * node] += lazy[node];
+            lazy[2 * node + 1] += lazy[node];
+        }
+        lazy[node] = 0;
+    }
+}
+
+long long query(long long *tree, long long *lazy, long long *a, long long node, long long l, long long r, long long b, long long e)
+{
+    propagate(tree, lazy, node, l, r);
+    if (r < b || e < l)
+        return 0;
+
+    if (b <= l && r <= e)
         return tree[node];
-    }
 
-    int left = 2*node, right= left+1;
-    int mid = (l+r)/2; // l + (r-l)/2
+    long long mid = l + (r - l) / 2;
 
-    int left_value = query(tree, a, left, l, mid, begin, end);
-    int right_value = query(tree, a, right, mid+1, r, begin, end);
-
-    return left_value+ right_value;
+    return query(tree, lazy, a, 2 * node, l, mid, b, e) + query(tree, lazy, a, 2 * node + 1, mid + 1, r, b, e);
 }
 
-void update(int *tree, int *a, int node, int l, int r, int index, int value){
-    if(l==r){
-        a[l] = value;
-        tree[node] = a[l];
+void update_range(long long *tree, long long *lazy, long long *a, long long node, long long l, long long r, long long b, long long e, long long val)
+{
+    propagate(tree, lazy, node, l, r);
+    if (r < b || e < l)
+        return;
+    if (b <= l && r <= e)
+    {
+        tree[node] += (r - l + 1) * val;
+
+        if (l != r)
+        {
+            lazy[2 * node] += val;
+            lazy[2 * node + 1] += val;
+        }
         return;
     }
 
-    int left = 2*node, right= left+1;
-    int mid = (l+r)/2;
+    long long mid = l + (r - l) / 2;
 
-    if(index<=mid) update(tree, a, left, l, mid, index, value);
-    else update(tree, a, right, mid+1, r, index, value);
-    
-    tree[node] = tree[left] + tree[right];
+    update_range(tree, lazy, a, 2 * node, l, mid, b, e, val);
+    update_range(tree, lazy, a, 2 * node + 1, mid + 1, r, b, e, val);
+
+    tree[node] = tree[2 * node] + tree[2 * node + 1];
 }
 
+int main()
+{
+    long long t;
+    // cin >> t;
+    t=1;
+    while (t--)
+    {
+        long long n, q;
+        cin >> n >> q;
+        long long a[n + 2], tree[4 * n], lazy[4 * n];
 
-int main(){
-    int n;
-    cin>>n;
+        for (long long i = 1; i <= n; i++)
+            cin >> a[i];
+        build(tree, lazy, a, 1, 1, n);
 
-    int a[n+2], tree[4*n];
-    for(int i=1;i<=n;i++) cin>>a[i];
-    // for(int i=1;i<=n;i++) cout<<a[i]<<" ";
-
-    build(tree, a, 1, 1, n);
-    int desire_value = query(tree, a, 1, 1, n, 2, 4);
-    update(tree, a, 1, 1, n, 3, 10);
-    int after_updated_value = query(tree, a, 1, 1, n, 2, 4);
-
-
-    cout<<desire_value<<" "<<after_updated_value<<endl;
+        while (q--)
+        {
+            int type;
+            cin >> type;
+            if (type == 1)
+            {
+                long long x, y, val;
+                cin >> x >> y >> val;
+                update_range(tree, lazy, a, 1, 1, n, x, y, val);
+                continue;
+            }
+            long long x;
+            cin >> x;
+            cout << query(tree, lazy, a, 1, 1, n, x, x) << endl;
+        }
+    }
 }
