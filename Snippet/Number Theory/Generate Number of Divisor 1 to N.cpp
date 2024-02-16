@@ -2,18 +2,18 @@
 using namespace std;
 
 /*
-    1. Generate divisor of 1 to n
+    1. Generate Number of divisor of 1 to n
     2. Time complexity: O(nlogn)
     3. maximum n = 10^6
 
     Usuage:
     1. Just call into main function - 
-    vector<int>divisor = generateDivisor(n);
+    vector<int>divisor = generateNumberOfDivisor(n);
     2. divisor[12] = 6 
 */
 
 
-vector<int>generateDivisor(int n= 1e6){
+vector<int>generateNumberOfDivisor(int n= 1e6){
     vector<int>divisor(n+1, 1); // by default all divisor number is 1
     for(int i=2;i<=n;i++){
         if(divisor[i]==1){ // that means i is prime
@@ -32,7 +32,7 @@ vector<int>generateDivisor(int n= 1e6){
 
 int main(){
     int n = 12;
-    vector<int>divisor = generateDivisor();
+    vector<int>divisor = generateNumberOfDivisor();
     for(int i=1;i<=n;i++){
         cout<<i<<" "<<divisor[i]<<endl;
     }
