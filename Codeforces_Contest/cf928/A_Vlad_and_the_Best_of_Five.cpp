@@ -34,34 +34,20 @@ using namespace std;
 
 #define auto(x,a) for (auto& x : a)
 
-long long digitSum(long long n){
-    long long sum =0;
-    while(n){
-        sum+=n%10;
-        n/=10;
-    }
-    return sum;
-}
-
-vector<long long> pre(long long n){
-    vector<long long>v(n+3);
-    for(long long i=1;i<=n;i++){
-        if(i==1) v[1]=1;
-        else v[i]=v[i-1]+digitSum(i);
-    }
-    return v;
-}
-
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0), cout.tie(0);
+   ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
 
-     vector<long long>v = pre(200005);
     long long t;
     cin >> t;
     while (t--) {
-        long long n;
-        cin >> n;
-        cout << v[n]<<endl;
+        string s;
+        cin>>s;
+        long long zero=0,one=0;
+        for(auto x:s){
+            if(x=='A') zero++;
+            else one++;
+        }
+        if(one<zero) cout<<"A"<<endl;
+        else if(one>zero) cout<<"B"<<endl;
     }
 }

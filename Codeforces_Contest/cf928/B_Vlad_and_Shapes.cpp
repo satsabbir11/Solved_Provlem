@@ -43,24 +43,18 @@ int main() {
         long long n;
         cin>>n;
         
-        char a[n+1][n+1];
-        long long one=0, zero=0;
+        
+        bool g=true;
         for(long long i=1;i<=n;i++){
+            int cnt=0;
             for(long long j=1;j<=n;j++){
-                cin>>a[i][j];
+                char x;
+                cin>>x;
+                if(x=='1') cnt++;
             }
+            if(cnt==1) g=false;
         }
 
-        bool f= false, g= false;
-
-        for(long long i=1;i<=n;i++) {
-            for(long long j=1;j<=n;j++) {
-                if(a[i][j]=='1' && !f) one++;
-                if(one && f && a[i][j]=='1') zero++;
-            }
-            if(one) f=true;
-            if(one == zero && one) g= true;
-        }
 
         if(g) cout<<"SQUARE"<<endl;
         else cout<<"TRIANGLE"<<endl;
