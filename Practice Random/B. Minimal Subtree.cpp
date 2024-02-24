@@ -6,12 +6,11 @@ int n;
 int selfChar[200005];
 vector<vector<int>>edges(200005);
 vector<vector<int>>curNodeChar(200005, vector<int>(30));
-map<int, int>givenStringCharCount, sizeOfNode;
+int givenStringCharCount[200005], sizeOfNode[200005];
 
 void dfs(int u, int par){
     curNodeChar[u][selfChar[u]]++; //self charecter
     sizeOfNode[u]++; //self size
-
 
     for(int v:edges[u]){
         if(v!=par){
