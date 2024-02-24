@@ -58,7 +58,7 @@ int main() {
         bool f=true;
 
         for(long long i=1;i<=n;i++){
-          if(myp>a[i].first){
+          if(myp>=a[i].first){
             myp-=a[i].first;
             continue;
           }else{
