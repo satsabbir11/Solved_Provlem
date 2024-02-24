@@ -47,38 +47,22 @@ int main() {
         for(long long i=1;i<=n;i++) cin>>a[i].first;
         for(long long i=1;i<=n;i++){
             cin>>a[i].second;
-            a[i].second = abs(a[i].second);
+            a[i].second = abs(a[i].second)*p;
         }
 
         sort(a+1, a+1+n, [](pair<long long, long long>x, pair<long long, long long>y){
             return x.second<y.second;
         });
 
-        long long tm=0, myp=0;
+        long long sum=0;;
         bool f=true;
 
         for(long long i=1;i<=n;i++){
-          if(myp>=a[i].first){
-            myp-=a[i].first;
-            continue;
-          }else{
-            a[i].first-=myp; 
-            myp=0;
-          }
-          a[i].second-=tm;
-          if(a[i].second<=0){
+          sum+=a[i].first;
+          if(sum>a[i].second){
             f=false;
             break;
           }
-
-          long long is = (a[i].first + p-1)/p;
-          if(is>a[i].second){
-            f=false;
-            break;
-          }
-
-          tm+=is;
-          myp += (is*p - a[i].first); 
         }
         cout<<con<<endl;
     }
