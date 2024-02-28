@@ -1,3 +1,5 @@
+#include<bits/stdc++.h>
+using namespace std;
 //K= root, n=node
 void find(vector<long long>a[], long long n, long long k)
 {

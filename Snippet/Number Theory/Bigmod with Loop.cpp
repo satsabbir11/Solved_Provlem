@@ -1,3 +1,4 @@
+#define MOD 1000000007
 long long Big(long long x, long long n)
 {
   long long ans=1;

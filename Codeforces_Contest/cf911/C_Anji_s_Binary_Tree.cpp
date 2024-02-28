@@ -6,6 +6,7 @@ using namespace std;
 
 string s;
 
+<<<<<<< HEAD
 int traverse(vector<vector<int>> &p, int u, int par, int cnt)
 {
    
@@ -13,6 +14,13 @@ int traverse(vector<vector<int>> &p, int u, int par, int cnt)
 
     if (p[u][0] == 0 && p[u][1] == 0)
         return cnt;
+=======
+int traverse(vector<vector<int>> &p, int u, int par)
+{
+    //cout<<u<<endl;
+    if (p[u][0] == 0 && p[u][1] == 0)
+        return 0;
+>>>>>>> main
 
     int x, y;
     x = y = INT_MAX;
@@ -20,6 +28,7 @@ int traverse(vector<vector<int>> &p, int u, int par, int cnt)
     for (int i = 0; i < p[u].size(); i++)
     {
         int v = p[u][i];
+<<<<<<< HEAD
         
         if (par != v)
         {
@@ -30,6 +39,17 @@ int traverse(vector<vector<int>> &p, int u, int par, int cnt)
             else{
                 if (s[v-1]=='R') x = traverse(p, v, u, 0);
                 else x = traverse(p, v, u, 1);
+=======
+        if (par != v && v)
+        {
+            if (i == 0){
+                if(s[u-1] == 'L') x = traverse(p, v, u);
+                else x = 1+traverse(p, v, u);
+            }
+            else{
+                if(s[u-1] == 'R') y = traverse(p, v, u);
+                else y = 1+traverse(p, v, u);
+>>>>>>> main
             }
         }
     }
@@ -60,8 +80,12 @@ int main()
             p[i].push_back(x);
             p[i].push_back(y);
         }
+<<<<<<< HEAD
 
         cout << traverse(p, 1, 0, s[0])<< endl;
+=======
+        cout << traverse(p, 1, 0) << endl;
+>>>>>>> main
     }
 
     return 0;
