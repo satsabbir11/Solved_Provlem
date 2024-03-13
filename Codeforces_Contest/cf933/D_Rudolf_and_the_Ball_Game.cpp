@@ -4,44 +4,34 @@ using namespace std;
 set<int> st;
 int n, m;
 
-int dp[1005][1005];
+int vis[1005][1005];
+
+long long doRepeat(int cur, int extra, int mod, bool dir=true){
+    long long num;
+    if(dir) num =  (cur+extra)%mod;
+    else num = (cur-extra+mod)%mod;
+    return num?num:n;
+}
 
 void dfs(int val, int index, char *opdir, int *op)
 {
     if (index > m)
     {
         st.insert(val);
-        dp[val][index] = 1;
+        vis[val][index] = 1;
         return;
     }
-    if (dp[val][index] != -1) return;
+    if (vis[val][index] != -1) return;
 
-    if (opdir[index] == '0')
-    {
-        int nn = (val + op[index]) % n;
-        if (nn == 0)
-            nn = n;
-        dfs(nn, index + 1, opdir, op);
-    }
-    else if (opdir[index] == '1')
-    {
-        int nn = val - (op[index] % n);
-        if (nn <= 0)
-            nn = n + nn;
-        dfs(nn, index + 1, opdir, op);
-    }
+    if (opdir[index] == '0')  dfs(doRepeat(val, op[index], n), index + 1, opdir, op);
+    else if (opdir[index] == '1')  dfs( doRepeat(val, op[index], n, false), index + 1, opdir, op);
     else
     {
-        int nn = (val + op[index]) % n;
-        if (nn == 0)
-            nn = n;
-        dfs(nn, index + 1, opdir, op);
-        nn = val - (op[index] % n);
-        if (nn <= 0)
-            nn = n + nn;
-        dfs(nn, index + 1, opdir, op);
+       
+        dfs(doRepeat(val, op[index], n), index + 1, opdir, op);
+        dfs( doRepeat(val, op[index], n, false), index + 1, opdir, op);
     }
-    dp[val][index] = 1;
+    vis[val][index] = 1;
 }
 
 int main()
@@ -53,7 +43,7 @@ int main()
     cin >> t;
     while (t--)
     {
-        memset(dp, -1, sizeof(dp));
+        memset(vis, -1, sizeof(vis));
         st.clear();
         int k;
         cin >> n >> m >> k;
@@ -64,8 +54,6 @@ int main()
         for (int i = 1; i <= m; i++)
             cin >> op[i] >> opdir[i];
 
-        queue<pair<int, int>> q;
-        q.push({k, 1});
 
         dfs(k, 1, opdir, op);
 
