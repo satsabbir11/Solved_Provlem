@@ -51,8 +51,7 @@ int main()
 
         long long a[n + 2];
         map<long long, long long> mp;
-        for (long long i = 1; i <= n; i++)
-        {
+        for (long long i = 1; i <= n; i++){
             cin >> a[i];
             mp[a[i]]++;
         }
@@ -61,14 +60,24 @@ int main()
         bool f = true;
         sort(a+1, a+1+n);
 
-
-        for (auto [x, y] : mp)
-        {
-            if(y>=2) past+=y-1;
-            else break;
+        for(long i=2;i<=n;i++){
+           if(mp[a[i]]==1 && !f){
+             past=a[i];
+             break;
+           }
+           if(mp[a[i]]==1) f=false;
+           if(a[i]-a[i-1]>1){
+             past = a[i-1]+1;
+             break;
+           }
+           if(mp[a[i-1]]==1 and mp[a[i]]==1){
+             past = a[i];
+             break;
+           }
+           past = a[i]+1;
         }
 
-        past = min(past, a[n]);
-        cout << max(0ll, past+1) << endl;
+        if(a[1]==1) past=0;
+        cout<<past<<endl;
     }
 }
