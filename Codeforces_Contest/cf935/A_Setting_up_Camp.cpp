@@ -49,25 +49,19 @@ int main()
         long long a[4];
         for (long long i = 1; i <= 3; i++)
             cin >> a[i];
-        long long ans = a[1];
+       
 
-        if (a[2] % 3)
-        {
-            long long rem = 3 - a[2] % 3;
-            //cout<<rem<<" "<<a[3]<<endl;
-            if (rem > a[3])
-            {
-                cout << -1 << endl;
-                continue;
-            }
-            else
-            {
-                ans += (a[2] / 3) + 1;
-                a[3] -= rem;
-            }
-            a[2]=0;
+        long long dorkar = 3-a[2]%3;
+        if(dorkar!=3){
+            a[2]+=dorkar;
+            a[3]-=dorkar;
         }
 
-        cout << ans + + a[2]/3 + (a[3]+2)/3 << endl;
+        if(a[3]<0){
+            cout<<-1<<endl;
+            continue;
+        }
+
+        cout<<a[1]+a[2]/3+(a[3]+2)/3<<endl;
     }
 }
