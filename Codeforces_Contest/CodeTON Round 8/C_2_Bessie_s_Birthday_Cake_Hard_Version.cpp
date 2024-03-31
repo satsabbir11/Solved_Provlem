@@ -37,6 +37,7 @@ using namespace std;
 long long dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
 long long dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
 
+
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -46,30 +47,40 @@ int main()
     cin >> t;
     while (t--)
     {
-        long long n;
-        cin >> n;
+        long long m, n, y;
+        cin >> m >> n >> y;
 
-        long long a[n + 2];
+        long long a[n + 2], ans1=0;
         for (long long i = 1; i <= n; i++)
             cin >> a[i];
 
-        long long mex1 = 0, mex2 = 1;
+        sort(a+1, a+1+n);
+        a[n+1]=m+a[1];
 
-        bool vis[n + 2] = {};
+        vector<long long>p;
 
-        for (long long i = 1; i <= n; i++)
-        {
-            long long one = mex1-a[i], two = mex2-a[i];
-            if(one>-1 and !vis[one]){
-                cout<<one<<" ";
-                vis[one]=true;
-            }else{
-                cout<<two<<" ";
-                vis[two]=true;
-            }
-            while(vis[mex1]) mex1++;
-            while(vis[mex2] || mex1==mex2) mex2++;
+        for(long long i=1;i<=n;i++){
+            p.push_back(a[i+1]-a[i]);
         }
-         cout<<endl;
+
+        sortv(p);
+
+        long long yy=y;
+
+        for(long long i=0;i<p.size();i++){
+            if(p[i]==1) continue;
+            else{
+                long long mn = p[i]-2;
+                //cout<<mn<<endl;
+                if(mn<=y){
+                    y-=mn;
+                    p[i]-=mn;
+                }
+                if(p[i]==2) ans1++;
+                //cout<<ans1<<endl;
+            }
+        }
+       
+        cout <<ans1+n+yy-2 << endl;
     }
 }

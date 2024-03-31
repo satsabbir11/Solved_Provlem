@@ -37,13 +37,6 @@ using namespace std;
 long long dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
 long long dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
 
-long long hello(long long i, long long *a, long long n)
-{
-   if(i>=n) return 0;
-   long long ans=0;
-   if(i+2<=n) ans++;
-   return max(hello(i+1, a, n), ans+hello(i+2, a, n));
-}
 
 int main()
 {
@@ -57,18 +50,33 @@ int main()
         long long m, n, y;
         cin >> m >> n >> y;
 
-        long long a[n + 2], ans = 0;
+        long long a[n + 2], ans1=0;
         for (long long i = 1; i <= n; i++)
             cin >> a[i];
 
-        long long ans1 = hello(1, a, n);
-        n/=2;
+        sort(a+1, a+1+n);
+        a[n+1]=m+a[1];
 
-        while (n)
-        {
-            ans += (n+1) / 2;
-            n /= 2;
+        vector<long long>p;
+
+        for(long long i=1;i<=n;i++){
+            p.push_back(a[i+1]-a[i]);
         }
-        cout << ans<<" "<<ans1<<" "<<ans1+ans << endl;
+
+        sortv(p);
+
+        for(long long i=0;i<p.size();i++){
+            if(p[i]==1) continue;
+            else{
+                long long mn = p[i]-2;
+                if(mn<=y){
+                    y-=mn;
+                    p[i]-=mn;
+                }
+                if(p[i]==2) ans1++;
+            }
+        }
+       
+        cout <<ans1+n+y-2 << endl;
     }
 }
