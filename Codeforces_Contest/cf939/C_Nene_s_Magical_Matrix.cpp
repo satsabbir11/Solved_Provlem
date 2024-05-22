@@ -1,21 +1,34 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+
 using namespace std;
 
-int main(){
-    long long t; cin>>t;
-    while(t--){
-        long long n, cnt=0; cin>>n;
-        for(long long i=1;i<=n;i++) cnt+=i*(i+i-1);
+// Function to check if a number is prime
+bool isPrime(int n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
 
-        cout<<cnt<<" "<<2*n<<endl;
+    if (n % 2 == 0 || n % 3 == 0) return false;
 
-        int ii=n, jj=n;
-      
-        for(long long i=1;i<=2*n;i++){
-            if(i%2) cout<<1<<" "<<ii--<<" ";
-            else cout<<2<<" "<<jj--<<" ";
-            for(long long j=1;j<=n;j++) cout<<j<<" ";
-            cout<<endl;
-        }
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) return false;
     }
+
+    return true;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> primes;
+    for (int i = 2; primes.size() < n; ++i) {
+        if (isPrime(i)) primes.push_back(i);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        cout << primes[i] << " ";
+    }
+
+    return 0;
 }
