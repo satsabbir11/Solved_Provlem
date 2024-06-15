@@ -1,91 +1,57 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-#define endl "\n"
 #define pi acos(-1)
 #define MOD 1000000007
 #define inf 1000000010
+#define endl "\n"
 #define ull unsigned long long
-#define con (f ? "YES" : "NO")
-#define yes cout << "YES" << endl
-#define no cout << "NO" << endl
+#define con (f?"YES":"NO")
 
-#define dpos(n) fixed << setprecision(n)
+#define Dpos(n) fixed << setprecision(n)
 
-#define clear1(a) memset(a, -1, sizeof(a))
-#define clear0(a) memset(a, 0, sizeof(a))
+#define CLR(a) memset(a, -1, sizeof(a))
+#define CLN(a) memset(a, 0, sizeof(a))
 
-#define sortn(a, x, n) sort(a + x, a + x + n)
+#define max3(a,b,c) max(max(a,b),c)
+#define min3(a,b,c) min(min(a,b),c)
+#define max4(a,b,c,d) max(a,max3(b,c,d))
+#define min4(a,b,c,d) min(a,min3(b,c,d))
+#define max5(a,b,c,d,e) max(max4(a,b,c,d),e)
+#define min5(a,b,c,d,e) min(min4(a,b,c,d),e)
+
+#define sortn(a,x) sort(a+x, a+x+n)
 #define sortv(s) sort(s.begin(), s.end())
 #define reversev(s) reverse(s.begin(), s.end())
-#define rsortv(s) sort(s.rbegin(), s.rend())
+#define reversesortv(s) sortv(s); reversev(s)
 #define unik(a) unique(a.begin(), a.end()) - a.begin()
-#define iotav(s, x) iota(s.begin(), s.end(), x)
 
-#define lowerbound(v, x) lower_bound(v.begin(), v.end(), x) - v.begin()
-#define upperbound(v, x) upper_bound(v.begin(), v.end(), x) - v.begin()
+#define lowerbound(v,x) lower_bound(v.begin(), v.end(), x)-v.begin()+1
+#define upperbound(v,x) upper_bound(v.begin(), v.end(), x)-v.begin()
 
 #define pb push_back
-#define loj(i, j) "Case " << i << ": " << j
+#define loj(i,j) "Case "<<i<<": "<<j
 #define gap " "
 
-#define auto(x, a) for (auto &x : a)
-#define print(x) cout << #x << " = " << x << endl
+#define auto(x,a) for (auto& x : a)
 
-#define moveForward(current, ammount, mod) (amount - current) % mod
-#define moveBackward(current, ammount, mod) (((amount - current) % mod) + mod) % mod
-
-long long dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
-long long dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
-
-long long bigMod(long long a, long long b)
-{
-    if (!b)
-        return 1;
-    long long res = bigMod(a, b >> 1);
-    long long ans = (res * res) % MOD;
-    if (b % 2)
-        ans = (ans * a) % MOD;
-    return ans;
-}
-
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(0), cout.tie(0);
+int main() {
+   ios_base::sync_with_stdio(false); cin.tie(0),cout.tie(0);
 
     long long t;
     cin >> t;
-    while (t--)
-    {
+    while (t--) {
         long long n, k;
-        cin >> n >> k;
+        cin>>n>>k;
+        
+        long long a[n+2], cum[n+2]={};
+        for(long long i=1;i<=n;i++) cin>>a[i];
 
-        long long a[n + 2], sum = 0;
-        for (long long i = 1; i <= n; i++)
-        {
-            cin >> a[i];
-            sum += a[i];
-        }
+        sort(a+1, a+n+1);
 
-        long long max_so_far = 0, max_ending_here = 0, ans = 0;
+        for(int i=1;i<=n;i++) cum[i]=a[i]+cum[i-1];
 
-        for (int i = 1; i <= n; i++)
-        {
-            max_ending_here = max_ending_here + a[i];
-            if (max_so_far < max_ending_here)
-                max_so_far = max_ending_here;
-
-            if (max_ending_here < 0)
-                max_ending_here = 0;
-        }
-
-        ans = max(max_so_far, sum);
-
-        long long bg = (bigMod(2, k) - 1 + MOD) % MOD;
-        bg = (ans % MOD * bg) % MOD;
-
-        if(sum<0) sum+=MOD;
-
-        cout << (sum % MOD + bg + MOD) % MOD << endl;
+        long long ans =0;
+        for(int i=0;i<=k;i++) ans = max(ans, cum[n-k+i]-cum[2*i]);
+        cout<<ans<<endl;
     }
 }
