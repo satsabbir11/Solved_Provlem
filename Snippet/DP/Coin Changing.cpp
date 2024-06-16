@@ -1,19 +1,25 @@
-long long minNumberOfCoin(vector<long long>&v, long long val, long long n, vector<long long>&dp){
-    if(val==0) return 0;
-    if(dp[val]!=-1) return dp[val];
- 
+long long minNumberOfCoin(vector<long long> &v, long long val, long long n, vector<long long> &dp)
+{
+    cnt++;
+    if (val == 0)
+        return 0;
+    if (val < 0)
+        return LLONG_MAX;
+    if (dp[val] != LLONG_MAX)
+        return dp[val];
+
     long long ans = LLONG_MAX;
- 
-    for(long long i=0;i<n;i++){
-        if(v[i]<=val){
-            long long subAns = coinChange(v, val-v[i], n, dp);
-            if(subAns!=long long_MAX && subAns+1<ans) ans = subAns+1; 
-        }
+
+    for (long long i = 0; i < n; i++)
+    {
+        long long res = minNumberOfCoin(v, val - v[i], n, dp);
+        if (res != LLONG_MAX)
+            ans = min(ans, res + 1);
     }
- 
-    dp[val] = ans;
-    return ans;
+
+    return dp[val] = ans;
 }
+
 
 int numberOfWays(int coins[], int n, int sum)
 {
