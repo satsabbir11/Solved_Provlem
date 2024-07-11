@@ -1,26 +1,10 @@
-int lengthOfLIS(vector<int>& nums)
-{
-    short totalNums = nums.size();
-    int lisSize = 0;
-    vector<short>lis(totalNums+1,totalNums+10);
-    lis[0] *= -1;
-    for(int x:nums)
-    {
-        short lo = 0, high = lisSize;
-        while(lo!=high)
-        {
-            short mid = (lo + high)/2;
-            if(lis[mid]<x)
-            {
-                lo = mid + 1;
-            }
-            else
-            {
-                high = mid;
-            }
+int LIS(vector<int>&v){
+    int l = v.size(), dp[l];
+    for(int i=0; i<l;i++){
+        dp[i]=1;
+        for(int j=0; j<i; j++){
+            if(v[j]<v[i] and dp[i]<dp[j]+1) dp[i] = dp[j] + 1;
         }
-        lis[lo] = x;
-        lisSize += (lo==lisSize);
     }
-    return lisSize;
+    return *max_element(dp, dp+l);
 }
