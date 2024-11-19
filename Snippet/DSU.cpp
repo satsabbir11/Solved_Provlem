@@ -2,7 +2,6 @@ struct DSU
 {
 	int connected;
 	vector<int> par, sz;
-
 	void init(int n) 
 	{
 		par = sz = vector<int> (n + 1, 0);
@@ -10,7 +9,6 @@ struct DSU
 			par[i] = i, sz[i] = 1;
 		connected = n;
 	}
-
 	int getPar(int u)
 	{
 		while(u != par[u])
@@ -20,12 +18,10 @@ struct DSU
 		}
 		return u;
 	}
-
 	int getSize(int u)
 	{
 		return sz[getPar(u)];
 	}
-
 	void unite(int u, int v)
 	{
 		int par1 = getPar(u), par2 = getPar(v);
@@ -34,7 +30,6 @@ struct DSU
 			return;
 
 		connected--;
-
 		if(sz[par1] > sz[par2])
 			swap(par1, par2);
 

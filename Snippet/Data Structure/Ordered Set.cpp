@@ -4,8 +4,6 @@
 using namespace std;
 typedef __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update> ordered_set;
 
-
-
 int main()
 {
     ios_base::sync_with_stdio(false);

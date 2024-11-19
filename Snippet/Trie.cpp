@@ -1,9 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define endl "\n"
-#define con (f ? "YES" : "NO")
-#define loj(i, j) "Case " << i << ": " << j
-
 struct Trie
 {
     bool lastLetter;
@@ -63,9 +57,6 @@ void clear(Trie *node)
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0), cout.tie(0);
-
     long long t, k = 0;
     cin >> t;
     while (t--)
